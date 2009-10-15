@@ -1,5 +1,7 @@
  /****************************************************************************
  **
+ ** TEST
+ **
  ** Copyright (C) 2004-2008 Trolltech ASA. All rights reserved.
  **
  ** This file is part of the documentation of the Qt Toolkit.
