@@ -67,7 +67,6 @@
      void start();
      void pause();
 	void keyConfig();
-	void makepopup();
 
  signals:
      void scoreChanged(int score);
@@ -126,6 +125,7 @@
 	 int dropVar;
 	 int mdropVar;
 	 int key;
+	 int temK;
 	QPushButton *leftButton;
 	QPushButton *rightButton;
 	QPushButton *rotateButton;

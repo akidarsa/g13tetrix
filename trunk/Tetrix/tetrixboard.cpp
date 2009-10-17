@@ -44,6 +44,7 @@
  #include <QtGui>
  #include <QMessageBox>
  #include "tetrixboard.h"
+#include "tetrixkey.h"
 
  TetrixBoard::TetrixBoard(QWidget *parent)
      : QFrame(parent)
@@ -53,6 +54,15 @@
      isStarted = false;
      isPaused = false;
      clearBoard();
+
+	leftVar = Qt::Key_Left;
+	rightVar = Qt::Key_Right;
+	rotRightVar = Qt::Key_Up;
+	rotLeftVar = Qt::Key_Down;
+	dropVar = Qt::Key_D;
+	mdropVar= Qt::Key_Space;
+
+
 
      nextPiece.setRandomShape();
  }
@@ -87,13 +97,6 @@
      score = 0;
      level = 1;
      clearBoard();
-
-	leftVar = Qt::Key_Left;
-	rightVar = Qt::Key_Right;
-	rotRightVar = Qt::Key_Up;
-	rotLeftVar = Qt::Key_Down;
-	dropVar = Qt::Key_D;
-	mdropVar= Qt::Key_Space;
 
      emit linesRemovedChanged(numLinesRemoved);
      emit scoreChanged(score);
@@ -415,58 +418,16 @@
 
 void TetrixBoard::keyConfig()
 {
-	QDialog* confpop = new QDialog(this);
-	confpop -> resize(500, 600 );
-    	QGridLayout *layout = new QGridLayout;
-	leftButton = new QPushButton(tr("&Left"));
-	rightButton = new QPushButton(tr("&Right"));
-	rotateButton = new QPushButton(tr("&Rotate"));
-	softDownButton = new QPushButton(tr("&Soft Down"));
-	hardDownButton = new QPushButton(tr("&Hard Down"));
-	
-	layout->addWidget(leftButton, 0, 0);
-	layout->addWidget(rightButton, 1, 0);
-	layout->addWidget(rotateButton, 2, 0);
-	layout->addWidget(softDownButton, 3, 0);
-	layout->addWidget(hardDownButton, 4, 0);
-	confpop->setLayout(layout);
-	connect(leftButton, SIGNAL(clicked()), this, SLOT(makepopup()));
-	connect(rightButton, SIGNAL(clicked()), this, SLOT(makepopup()));
-	connect(rotateButton, SIGNAL(clicked()), this, SLOT(makepopup()));
-	connect(softDownButton, SIGNAL(clicked()), this, SLOT(makepopup()));
-	connect(hardDownButton, SIGNAL(clicked()), this, SLOT(makepopup()));
+	TetrixKey dialog;
 	pause();
-	confpop->exec();
+	dialog.exec();
+	leftVar = dialog.getKey(TetrixKey::LEFT);
+	rightVar = dialog.getKey(TetrixKey::RIGHT);
+	rotRightVar = dialog.getKey(TetrixKey::ROTATE);
+	dropVar = dialog.getKey(TetrixKey::SOFTDOWN);
+	mdropVar = dialog.getKey(TetrixKey::MAGICDOWN);
+
 	pause();
-}
-
-void TetrixBoard::makepopup() 
-{
-	QObject *p = QObject::sender();
-	QDialog *setkey = new QDialog(this);
-	QGridLayout *layout = new QGridLayout;
-	setkey->resize(100, 70);
-	QLabel *label1 = new QLabel("Press a button.");
-	layout->addWidget(label1, 0, 0);
-	setkey->setLayout(layout);
-	setkey->exec();
-	if (p == leftButton) {
-		QKeyEvent::key(event);
-		leftVar = event->key();
-	}
-	else if (p == rightButton) {
-
-	}
-	else if (p == rotateButton) {
-
-	}
-	else if (p == softDownButton) {
-
-	}
-	else if (p == hardDownButton) {
-
-	}
-
 }
 
  QLabel *TetrixBoard::createLabel(const QString &text)
@@ -475,6 +436,3 @@ void TetrixBoard::makepopup()
 			  lbl->setAlignment(Qt::AlignHCenter | Qt::AlignBottom);
 			  return lbl;
 	 }
-
-
-
