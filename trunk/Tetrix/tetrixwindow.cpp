@@ -89,7 +89,7 @@
 
 
 	 connect(keyButton, SIGNAL(clicked()), board, SLOT(keyConfig())); //I have to change this when i know what it's supposed to do
-	 //connect(demoButton, SIGNAl(clicked()), board, SLOT(demo())); //Change this when demo mode is done.
+	 connect(demoButton, SIGNAL(clicked()), board, SLOT(demoMode())); //Change this when demo mode is done.
 
      connect(startButton, SIGNAL(clicked()), board, SLOT(start()));
      connect(quitButton , SIGNAL(clicked()), qApp, SLOT(quit()));

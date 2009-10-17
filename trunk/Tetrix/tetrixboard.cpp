@@ -53,6 +53,7 @@
      setFocusPolicy(Qt::StrongFocus);
      isStarted = false;
      isPaused = false;
+     isDemo = false;
      clearBoard();
 
 	leftVar = Qt::Key_Left;
@@ -91,11 +92,22 @@
 
      isStarted = true;
      isWaitingAfterLine = false;
+     isDemo = false;
      numLinesRemoved = 0;
      numPiecesDropped = 0;
-	 totNumDropped = 0;
+     totNumDropped = 0;
      score = 0;
      level = 1;
+
+	 /**
+	 fourBlockDropped = 0;
+	 fiveBlockDropped = 0;
+	 sixBlockDropped = 0;
+	 sevenBlockDropped = 0;
+	 **/
+
+
+
      clearBoard();
 
      emit linesRemovedChanged(numLinesRemoved);
@@ -103,6 +115,12 @@
      emit levelChanged(level);
 	 emit piecesDropped(numPiecesDropped);
 	 emit totsDropped(totNumDropped);
+
+/**	emit foursDropped(fourBlockDropped);
+	emit fivesDropped(fiveBlockDropped);
+	emit sixsDropped(sixBlockDropped);
+	emit sevensDropped(sevenBlockDropped);
+**/
 
      newPiece();
      timer.start(timeoutTime(), this);
@@ -134,6 +152,12 @@
          return;
      }
 
+/** implement isDemo **/
+	if (isDemo)
+	{
+         painter.drawText(rect, Qt::AlignCenter, tr("~~Demo Mode~~"));
+	}
+
      int boardTop = rect.bottom() - BoardHeight*squareHeight();
 
      for (int i = 0; i < BoardHeight; ++i) {
@@ -160,7 +184,7 @@
 
  void TetrixBoard::keyPressEvent(QKeyEvent *event)
  {
-     if (!isStarted || isPaused || curPiece.shape() == NoShape) {
+     if (!isStarted || isPaused || isDemo || curPiece.shape() == NoShape) {
          QFrame::keyPressEvent(event);
          return;
      }
@@ -194,30 +218,6 @@
          QFrame::keyPressEvent(event);
 	 }
 
-
-    /** 
-	 switch (event->key()) {
-     case Qt::Key_Left:
-         tryMove(curPiece, curX - 1, curY);
-         break;
-     case Qt::Key_Right:
-         tryMove(curPiece, curX + 1, curY);
-         break;
-     case Qt::Key_Down:
-         tryMove(curPiece.rotatedRight(), curX, curY);
-         break;
-     case Qt::Key_Up:
-         tryMove(curPiece.rotatedLeft(), curX, curY);
-         break;
-     case Qt::Key_Space:
-         dropDown();
-         break;
-     case Qt::Key_D:
-         oneLineDown();
-         break;
-     default:
-         QFrame::keyPressEvent(event);
-     }**/
  }
 
  void TetrixBoard::timerEvent(QTimerEvent *event)
@@ -343,10 +343,24 @@
 		 totNumDropped = 0;
 	     score = 0;
 	     level = 0;
+
+	 /**
+	 fourBlockDropped = 0;
+	 fiveBlockDropped = 0;
+	 sixBlockDropped = 0;
+	 sevenBlockDropped = 0;
+	 **/
+
+
 		 clearBoard();
 		 nextPieceLabel->clear();
      }
 
+/** emit foursDropped(fourBlockDropped);
+ *     emit fivesDropped(fiveBlockDropped);
+ *         emit sixsDropped(sixBlockDropped);
+ *             emit sevensDropped(sevenBlockDropped);
+ *             **/
 
      emit linesRemovedChanged(numLinesRemoved);
      emit scoreChanged(score);
@@ -368,6 +382,8 @@
      painter.fillRect(pixmap.rect(), nextPieceLabel->palette().background());
 
      for (int i = 0; i < 4; ++i) {
+	 totNumDropped++;
+	 emit totsDropped(totNumDropped);		
          int x = nextPiece.x(i) - nextPiece.minX();
          int y = nextPiece.y(i) - nextPiece.minY();
          drawSquare(painter, x * squareWidth(), y * squareHeight(),
@@ -436,3 +452,13 @@ void TetrixBoard::keyConfig()
 			  lbl->setAlignment(Qt::AlignHCenter | Qt::AlignBottom);
 			  return lbl;
 	 }
+
+void TetrixBoard::demoMode()
+{
+	if(!isStarted)
+	{
+		start();
+	}
+	printf("YEAH");
+	isDemo = !isDemo;
+}

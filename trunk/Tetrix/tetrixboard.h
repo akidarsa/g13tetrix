@@ -67,6 +67,7 @@
      void start();
      void pause();
 	void keyConfig();
+	void demoMode();
 
  signals:
      void scoreChanged(int score);
@@ -74,6 +75,10 @@
      void linesRemovedChanged(int numLines);
 	 void piecesDropped(int numPiecesDropped);
 	 void totsDropped(int totNumDropped);
+	void foursDropped(int fourBlockDropped);
+	void fivesDropped(int fiveBlockDropped);
+	void sixsDropped(int sixBlockDropped);
+	void sevensDropped(int sevenBlockDropped);
 
  protected:
      void paintEvent(QPaintEvent *event);
@@ -102,6 +107,7 @@
 
      QBasicTimer timer;
      QPointer<QLabel> nextPieceLabel;
+     bool isDemo;
      bool isStarted;
      bool isPaused;
      bool isWaitingAfterLine;
@@ -112,6 +118,10 @@
      int numLinesRemoved;
      int numPiecesDropped;
 	 int totNumDropped;
+	int fourBlockDropped;
+	int fiveBlockDropped;
+	int sixBlockDropped;
+	int sevenBlockDropped;
      int score;
      int level;
      TetrixShape board[BoardWidth * BoardHeight];
