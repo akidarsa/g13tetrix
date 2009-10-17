@@ -343,6 +343,7 @@
 		 totNumDropped = 0;
 	     score = 0;
 	     level = 0;
+		 isDemo = false;
 
 	 /**
 	 fourBlockDropped = 0;
@@ -350,7 +351,6 @@
 	 sixBlockDropped = 0;
 	 sevenBlockDropped = 0;
 	 **/
-
 
 		 clearBoard();
 		 nextPieceLabel->clear();
@@ -459,6 +459,5 @@ void TetrixBoard::demoMode()
 	{
 		start();
 	}
-	printf("YEAH");
 	isDemo = !isDemo;
 }
