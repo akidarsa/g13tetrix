@@ -83,6 +83,7 @@
      isWaitingAfterLine = false;
      numLinesRemoved = 0;
      numPiecesDropped = 0;
+	 totNumDropped = 0;
      score = 0;
      level = 1;
      clearBoard();
@@ -91,6 +92,7 @@
      emit scoreChanged(score);
      emit levelChanged(level);
 	 emit piecesDropped(numPiecesDropped);
+	 emit totsDropped(totNumDropped);
 
      newPiece();
      timer.start(timeoutTime(), this);
@@ -128,8 +130,10 @@
          for (int j = 0; j < BoardWidth; ++j) {
              TetrixShape shape = shapeAt(j, BoardHeight - i - 1);
              if (shape != NoShape)
+			 {
                  drawSquare(painter, rect.left() + j * squareWidth(),
                             boardTop + i * squareHeight(), shape);
+			 }
          }
      }
 
@@ -278,7 +282,7 @@
 
  void TetrixBoard::newPiece()
  {
-QMessageBox lossmessage;
+	 QMessageBox lossmessage;
      curPiece = nextPiece;
      nextPiece.setRandomShape();
      showNextPiece();
@@ -289,14 +293,25 @@ QMessageBox lossmessage;
          curPiece.setShape(NoShape);
          timer.stop();
          isStarted = false;
-lossmessage.setText("You lost the game!");
-lossmessage.setStandardButtons(QMessageBox::Ok);
-lossmessage.setDefaultButton(QMessageBox::Ok);
-lossmessage.exec();
-
+		 lossmessage.setText("You lost the game!");
+		 lossmessage.setStandardButtons(QMessageBox::Ok);
+		 lossmessage.setDefaultButton(QMessageBox::Ok);
+		 lossmessage.exec();
+	     numLinesRemoved = 0;
+	     numPiecesDropped = 0;
+		 totNumDropped = 0;
+	     score = 0;
+	     level = 0;
+		 clearBoard();
+		 clearNextPiece;
      }
 
+
+     emit linesRemovedChanged(numLinesRemoved);
+     emit scoreChanged(score);
+     emit levelChanged(level);
 	 emit piecesDropped(numPiecesDropped);
+	 emit totsDropped(totNumDropped);
  }
 
  void TetrixBoard::showNextPiece()
@@ -359,3 +374,8 @@ lossmessage.exec();
      painter.drawLine(x + squareWidth() - 1, y + squareHeight() - 1,
                       x + squareWidth() - 1, y + 1);
  }
+
+/**void TetrixBoard::keyConfig()
+{
+	QFrame
+}**/
