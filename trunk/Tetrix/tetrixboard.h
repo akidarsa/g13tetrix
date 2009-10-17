@@ -131,7 +131,6 @@
 	 int leftVar;
 	 int rightVar;
 	 int rotRightVar;
-	 int rotLeftVar;
 	 int dropVar;
 	 int mdropVar;
 	 int key;
