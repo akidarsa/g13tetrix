@@ -72,6 +72,7 @@
      void levelChanged(int level);
      void linesRemovedChanged(int numLines);
 	 void piecesDropped(int numPiecesDropped);
+	 void totsDropped(int totNumDropped);
 
  protected:
      void paintEvent(QPaintEvent *event);
@@ -106,9 +107,11 @@
      int curY;
      int numLinesRemoved;
      int numPiecesDropped;
+	 int totNumDropped;
      int score;
      int level;
      TetrixShape board[BoardWidth * BoardHeight];
+	 //QMessageBox lossmessage;
  };
 
  #endif
