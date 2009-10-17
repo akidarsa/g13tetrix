@@ -303,6 +303,7 @@
 	     score = 0;
 	     level = 0;
 		 clearBoard();
+		 nextPieceLabel->clear();
      }
 
 
