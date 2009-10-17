@@ -88,7 +88,7 @@
      demoButton->setFocusPolicy(Qt::NoFocus);
 
 
-	 //connect(keyButton, SIGNAL(clicked()), conf, SLOT(true())); //I have to change this when i know what it's supposed to do
+	 connect(keyButton, SIGNAL(clicked()), board, SLOT(keyConfig())); //I have to change this when i know what it's supposed to do
 	 //connect(demoButton, SIGNAl(clicked()), board, SLOT(demo())); //Change this when demo mode is done.
 
      connect(startButton, SIGNAL(clicked()), board, SLOT(start()));
