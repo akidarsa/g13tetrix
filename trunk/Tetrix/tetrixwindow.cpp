@@ -71,6 +71,8 @@
 	 sixsLcd->setSegmentStyle(QLCDNumber::Filled);
 	 sevensLcd = new QLCDNumber(5);
 	 sevensLcd->setSegmentStyle(QLCDNumber::Filled);
+	 totLcd = new QLCDNumber(5);
+	 totLcd->setSegmentStyle(QLCDNumber::Filled);
 
 
 
@@ -80,6 +82,14 @@
      quitButton->setFocusPolicy(Qt::NoFocus);
      pauseButton = new QPushButton(tr("&Pause"));
      pauseButton->setFocusPolicy(Qt::NoFocus);
+     keyButton = new QPushButton(tr("&Key Config"));
+     keyButton->setFocusPolicy(Qt::NoFocus);
+     demoButton = new QPushButton(tr("&Demo Mode"));
+     demoButton->setFocusPolicy(Qt::NoFocus);
+
+
+	 //connect(keyButton, SIGNAL(clicked()), conf, SLOT(true())); //I have to change this when i know what it's supposed to do
+	 //connect(demoButton, SIGNAl(clicked()), board, SLOT(demo())); //Change this when demo mode is done.
 
      connect(startButton, SIGNAL(clicked()), board, SLOT(start()));
      connect(quitButton , SIGNAL(clicked()), qApp, SLOT(quit()));
@@ -88,32 +98,42 @@
      connect(board, SIGNAL(levelChanged(int)), levelLcd, SLOT(display(int)));
      connect(board, SIGNAL(linesRemovedChanged(int)), linesLcd, SLOT(display(int)));
 	 connect(board, SIGNAL(piecesDropped(int)), piecesLcd, SLOT(display(int)));
+	 connect(board, SIGNAL(foursDropped(int)), foursLcd, SLOT(display(int)));
+	 connect(board, SIGNAL(fivesDropped(int)), fivesLcd, SLOT(display(int)));
+	 connect(board, SIGNAL(sixsDropped(int)), sixsLcd, SLOT(display(int)));
+	 connect(board, SIGNAL(sevensDropped(int)), sevensLcd, SLOT(display(int)));
+	 connect(board, SIGNAL(totsDropped(int)), totLcd, SLOT(display(int)));
 
      QGridLayout *layout = new QGridLayout;
      layout->addWidget(createLabel(tr("NEXT")), 0, 0);
      layout->addWidget(nextPieceLabel, 1, 0);
 	 layout->addWidget(createLabel(tr("Total Pieces Dropped")), 2, 0);
 	 layout->addWidget(piecesLcd, 3, 0);
-     layout->addWidget(createLabel(tr("LEVEL")), 5, 0);
-     layout->addWidget(levelLcd, 6, 0);
-     layout->addWidget(startButton, 7, 0);
-     layout->addWidget(board, 0, 1, 9, 1);
+     //
+	 layout->addWidget(createLabel(tr("Total Number of Square")), 5, 0);
+     layout->addWidget(totLcd, 6, 0);
+     layout->addWidget(createLabel(tr("LEVEL")), 8, 0);
+     layout->addWidget(levelLcd, 9, 0);
+     layout->addWidget(startButton, 11, 0);
+	 layout->addWidget(keyButton, 12, 0);
+	 layout->addWidget(demoButton,13,0);
+     layout->addWidget(board, 0, 1, 14, 1);
      layout->addWidget(createLabel(tr("SCORE")), 0, 2);
      layout->addWidget(scoreLcd, 1, 2);
 	 //Mod starts
 	 layout->addWidget(createLabel(tr("Four")),2,2);
 	 layout->addWidget(foursLcd, 3,2);
-	 layout->addWidget(createLabel(tr("Five")), 2,3);
-	 layout->addWidget(fivesLcd, 3,3);
-	 layout->addWidget(createLabel(tr("Six")), 4,2);
-	 layout->addWidget(sixsLcd, 5,2);
-	 layout->addWidget(createLabel(tr("Seven")), 4,3);
-	 layout->addWidget(sevensLcd, 5,3);
+	 layout->addWidget(createLabel(tr("Five")), 4,2);
+	 layout->addWidget(fivesLcd, 5,2);
+	 layout->addWidget(createLabel(tr("Six")), 6,2);
+	 layout->addWidget(sixsLcd, 7,2);
+	 layout->addWidget(createLabel(tr("Seven")), 8,2);
+	 layout->addWidget(sevensLcd, 9,2);
 	 //Trial Mod Ends
-     layout->addWidget(createLabel(tr("LINES REMOVED")), 6, 2);
-     layout->addWidget(linesLcd, 7, 2);
-     layout->addWidget(quitButton, 8, 2);
-     layout->addWidget(pauseButton, 9, 2);
+     layout->addWidget(createLabel(tr("LINES REMOVED")), 10, 2);
+     layout->addWidget(linesLcd, 11, 2);
+     layout->addWidget(quitButton, 12, 2);
+     layout->addWidget(pauseButton, 13, 2);
      setLayout(layout);
 
      setWindowTitle(tr("Tetrix"));

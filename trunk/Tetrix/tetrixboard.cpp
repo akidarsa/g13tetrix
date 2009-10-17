@@ -1,7 +1,5 @@
  /****************************************************************************
  **
- ** TEST
- **
  ** Copyright (C) 2004-2008 Trolltech ASA. All rights reserved.
  **
  ** This file is part of the documentation of the Qt Toolkit.
@@ -66,14 +64,14 @@
 
  QSize TetrixBoard::sizeHint() const
  {
-     return QSize(BoardWidth * 15 + frameWidth() * 2,
-                  BoardHeight * 15 + frameWidth() * 2);
+     return QSize(BoardWidth * 15 + frameWidth() * 4,
+                  BoardHeight * 15 + frameWidth() * 4);
  }
 
  QSize TetrixBoard::minimumSizeHint() const
  {
-     return QSize(BoardWidth * 5 + frameWidth() * 2,
-                  BoardHeight * 5 + frameWidth() * 2);
+     return QSize(BoardWidth * 5 + frameWidth() * 4,
+                  BoardHeight * 5 + frameWidth() * 4);
  }
 
  void TetrixBoard::start()
