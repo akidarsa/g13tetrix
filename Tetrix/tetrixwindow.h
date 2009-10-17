@@ -72,9 +72,12 @@
 	 QLCDNumber *fivesLcd;
 	 QLCDNumber *sixsLcd;
 	 QLCDNumber *sevensLcd;
+	 QLCDNumber *totLcd;
      QPushButton *startButton;
      QPushButton *quitButton;
      QPushButton *pauseButton;
+     QPushButton *keyButton;
+     QPushButton *demoButton;
  };
 
  #endif
