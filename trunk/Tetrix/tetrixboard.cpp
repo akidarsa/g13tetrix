@@ -64,14 +64,14 @@
 
  QSize TetrixBoard::sizeHint() const
  {
-     return QSize(BoardWidth * 15 + frameWidth() * 4,
-                  BoardHeight * 15 + frameWidth() * 4);
+     return QSize(BoardWidth * 15 + frameWidth() * 2,
+                  BoardHeight * 15 + frameWidth() * 2);
  }
 
  QSize TetrixBoard::minimumSizeHint() const
  {
-     return QSize(BoardWidth * 5 + frameWidth() * 4,
-                  BoardHeight * 5 + frameWidth() * 4);
+     return QSize(BoardWidth * 5 + frameWidth() * 2,
+                  BoardHeight * 5 + frameWidth() * 2);
  }
 
  void TetrixBoard::start()
@@ -88,12 +88,12 @@
      level = 1;
      clearBoard();
 
-	leftVar = 4114;
-	rightVar = 4116;
-	rotRightVar = 4115;
-	rotLeftVar = 4117;
-	dropVar = 32;
-	mdropVar= 68;
+	leftVar = Qt::Key_Left;
+	rightVar = Qt::Key_Right;
+	rotRightVar = Qt::Key_Up;
+	rotLeftVar = Qt::Key_Down;
+	dropVar = Qt::Key_D;
+	mdropVar= Qt::Key_Space;
 
      emit linesRemovedChanged(numLinesRemoved);
      emit scoreChanged(score);
@@ -162,45 +162,37 @@
          return;
      }
 
-	/**event->key;
-
-	 if(key == leftVar)
+	 if((event->key()) == leftVar)
 	 {
          tryMove(curPiece, curX - 1, curY);
-         break;
 	 }
-	 else if(event == rightVar)
+	 else if((event->key()) == rightVar)
 	 {
          tryMove(curPiece, curX + 1, curY);
-         break;
 	 }
-	 else if(event == rotRightVar)
+	 else if((event->key()) == rotRightVar)
 	 {
          tryMove(curPiece.rotatedRight(), curX, curY);
-         break;
 	 }
-	 else if(event == rotLeftVar)
+	 else if((event->key()) == rotLeftVar)
 	 {
          tryMove(curPiece.rotatedLeft(), curX, curY);
-         break;
 	 }
-	 else if(event == dropVar)
+	 else if((event->key()) == dropVar)
 	 {
          oneLineDown();
-         break;
 	 }
-	 else if(event == mdropVar)
+	 else if((event->key()) == mdropVar)
 	 {
          dropDown();
-         break;
 	 }
 	 else
 	 {
          QFrame::keyPressEvent(event);
-	 }**/
+	 }
 
 
-     
+    /** 
 	 switch (event->key()) {
      case Qt::Key_Left:
          tryMove(curPiece, curX - 1, curY);
@@ -222,8 +214,7 @@
          break;
      default:
          QFrame::keyPressEvent(event);
-	 
-     }
+     }**/
  }
 
  void TetrixBoard::timerEvent(QTimerEvent *event)
@@ -424,21 +415,20 @@
 
 void TetrixBoard::keyConfig()
 {
-	QFrame* confpop = new QFrame(this, Qt::Window);
+	QDialog* confpop = new QDialog(this);
 	confpop -> resize(500, 600 );
     QGridLayout *layout = new QGridLayout;
 	layout->addWidget(createLabel(tr("NEXT")), 0, 0);
-	layout->addWidget(createLabel(tr("NEXT")), 0, 0);
-	layout->addWidget(createLabel(tr("NEXT")), 0, 0);
-	layout->addWidget(createLabel(tr("NEXT")), 0, 0);
-	layout->addWidget(createLabel(tr("NEXT")), 0, 0);
-	layout->addWidget(createLabel(tr("NEXT")), 0, 0);
-	layout->addWidget(createLabel(tr("NEXT")), 0, 0);
-
-
-
-
-	confpop->show();
+	layout->addWidget(createLabel(tr("NEXT")), 1, 0);
+	layout->addWidget(createLabel(tr("NEXT")), 2, 0);
+	layout->addWidget(createLabel(tr("NEXT")), 3, 0);
+	layout->addWidget(createLabel(tr("NEXT")), 4, 1);
+	layout->addWidget(createLabel(tr("NEXT")), 5, 1);
+	layout->addWidget(createLabel(tr("NEXT")), 6, 1);
+	confpop->setLayout(layout);
+	pause();
+	confpop->exec();
+	pause();
 }
 
  QLabel *TetrixBoard::createLabel(const QString &text)
@@ -447,3 +437,6 @@ void TetrixBoard::keyConfig()
 			  lbl->setAlignment(Qt::AlignHCenter | Qt::AlignBottom);
 			  return lbl;
 	 }
+
+
+
