@@ -303,7 +303,6 @@
 	     score = 0;
 	     level = 0;
 		 clearBoard();
-		 clearNextPiece;
      }
 
 
@@ -375,7 +374,25 @@
                       x + squareWidth() - 1, y + 1);
  }
 
-/**void TetrixBoard::keyConfig()
+void TetrixBoard::keyConfig()
 {
-	QFrame
-}**/
+	QFrame* confpop = new QFrame(this, Qt::Window);
+	confpop -> resize(500, 600 );
+    QGridLayout *layout = new QGridLayout;
+	layout->addWidget(createLabel(tr("NEXT")), 0, 0);
+	layout->addWidget(createLabel(tr("NEXT")), 0, 0);
+	layout->addWidget(createLabel(tr("NEXT")), 0, 0);
+	layout->addWidget(createLabel(tr("NEXT")), 0, 0);
+	layout->addWidget(createLabel(tr("NEXT")), 0, 0);
+	layout->addWidget(createLabel(tr("NEXT")), 0, 0);
+	layout->addWidget(createLabel(tr("NEXT")), 0, 0);
+
+	confpop->show();
+}
+
+ QLabel *TetrixBoard::createLabel(const QString &text)
+	 {
+		      QLabel *lbl = new QLabel(text);
+			  lbl->setAlignment(Qt::AlignHCenter | Qt::AlignBottom);
+			  return lbl;
+	 }

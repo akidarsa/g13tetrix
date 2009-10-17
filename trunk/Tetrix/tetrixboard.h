@@ -66,6 +66,7 @@
  public slots:
      void start();
      void pause();
+	 void keyConfig();
 
  signals:
      void scoreChanged(int score);
@@ -81,6 +82,9 @@
 
  private:
      enum { BoardWidth = 20, BoardHeight = 30 };
+
+	 QLabel *createLabel(const QString &text);
+
 
      TetrixShape &shapeAt(int x, int y) { return board[(y * BoardWidth) + x]; }
      int timeoutTime() { return 1000 / (1 + level); }
