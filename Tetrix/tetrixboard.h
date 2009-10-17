@@ -51,7 +51,7 @@
  #include "tetrixpiece.h"
 
  class QLabel;
-
+ class QPushButton;
  class TetrixBoard : public QFrame
  {
      Q_OBJECT
@@ -66,7 +66,8 @@
  public slots:
      void start();
      void pause();
-	 void keyConfig();
+	void keyConfig();
+	void makepopup();
 
  signals:
      void scoreChanged(int score);
@@ -125,7 +126,11 @@
 	 int dropVar;
 	 int mdropVar;
 	 int key;
-
+	QPushButton *leftButton;
+	QPushButton *rightButton;
+	QPushButton *rotateButton;
+	QPushButton *softDownButton;
+	QPushButton *hardDownButton;
  };
 
  #endif
