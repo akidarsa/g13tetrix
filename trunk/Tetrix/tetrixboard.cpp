@@ -88,6 +88,13 @@
      level = 1;
      clearBoard();
 
+	leftVar = 4114;
+	rightVar = 4116;
+	rotRightVar = 4115;
+	rotLeftVar = 4117;
+	dropVar = 32;
+	mdropVar= 68;
+
      emit linesRemovedChanged(numLinesRemoved);
      emit scoreChanged(score);
      emit levelChanged(level);
@@ -155,7 +162,46 @@
          return;
      }
 
-     switch (event->key()) {
+	/**event->key;
+
+	 if(key == leftVar)
+	 {
+         tryMove(curPiece, curX - 1, curY);
+         break;
+	 }
+	 else if(event == rightVar)
+	 {
+         tryMove(curPiece, curX + 1, curY);
+         break;
+	 }
+	 else if(event == rotRightVar)
+	 {
+         tryMove(curPiece.rotatedRight(), curX, curY);
+         break;
+	 }
+	 else if(event == rotLeftVar)
+	 {
+         tryMove(curPiece.rotatedLeft(), curX, curY);
+         break;
+	 }
+	 else if(event == dropVar)
+	 {
+         oneLineDown();
+         break;
+	 }
+	 else if(event == mdropVar)
+	 {
+         dropDown();
+         break;
+	 }
+	 else
+	 {
+         QFrame::keyPressEvent(event);
+	 }**/
+
+
+     
+	 switch (event->key()) {
      case Qt::Key_Left:
          tryMove(curPiece, curX - 1, curY);
          break;
@@ -176,6 +222,7 @@
          break;
      default:
          QFrame::keyPressEvent(event);
+	 
      }
  }
 
@@ -387,6 +434,9 @@ void TetrixBoard::keyConfig()
 	layout->addWidget(createLabel(tr("NEXT")), 0, 0);
 	layout->addWidget(createLabel(tr("NEXT")), 0, 0);
 	layout->addWidget(createLabel(tr("NEXT")), 0, 0);
+
+
+
 
 	confpop->show();
 }

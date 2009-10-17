@@ -116,6 +116,16 @@
      int level;
      TetrixShape board[BoardWidth * BoardHeight];
 	 //QMessageBox lossmessage;
+	 
+	 
+	 int leftVar;
+	 int rightVar;
+	 int rotRightVar;
+	 int rotLeftVar;
+	 int dropVar;
+	 int mdropVar;
+	 int key;
+
  };
 
  #endif
