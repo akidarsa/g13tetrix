@@ -59,7 +59,6 @@
 	leftVar = Qt::Key_Left;
 	rightVar = Qt::Key_Right;
 	rotRightVar = Qt::Key_Up;
-	rotLeftVar = Qt::Key_Down;
 	dropVar = Qt::Key_D;
 	mdropVar= Qt::Key_Space;
 
@@ -200,10 +199,6 @@
 	 else if((event->key()) == rotRightVar)
 	 {
          tryMove(curPiece.rotatedRight(), curX, curY);
-	 }
-	 else if((event->key()) == rotLeftVar)
-	 {
-         tryMove(curPiece.rotatedLeft(), curX, curY);
 	 }
 	 else if((event->key()) == dropVar)
 	 {
