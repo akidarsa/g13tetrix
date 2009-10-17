@@ -42,7 +42,7 @@
  ****************************************************************************/
 
  #include <QtGui>
-
+ #include <QMessageBox>
  #include "tetrixboard.h"
 
  TetrixBoard::TetrixBoard(QWidget *parent)
@@ -278,6 +278,7 @@
 
  void TetrixBoard::newPiece()
  {
+QMessageBox lossmessage;
      curPiece = nextPiece;
      nextPiece.setRandomShape();
      showNextPiece();
@@ -288,6 +289,11 @@
          curPiece.setShape(NoShape);
          timer.stop();
          isStarted = false;
+lossmessage.setText("You lost the game!");
+lossmessage.setStandardButtons(QMessageBox::Ok);
+lossmessage.setDefaultButton(QMessageBox::Ok);
+lossmessage.exec();
+
      }
 
 	 emit piecesDropped(numPiecesDropped);
