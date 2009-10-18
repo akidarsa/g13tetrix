@@ -64,12 +64,11 @@ class TetrixBoard : public QFrame {
     Q_OBJECT
 
 public:
-    TetrixBoard(QWidget *parent = 0);
+    TetrixBoard(char argv[], QWidget *parent = 0);
 
     void setNextPieceLabel(QLabel *label);
     QSize sizeHint() const;
     QSize minimumSizeHint() const;
-    void getKey(char *input);
 
 public slots:
     void start();

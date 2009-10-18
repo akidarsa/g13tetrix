@@ -46,9 +46,9 @@
  #include "tetrixboard.h"
  #include "tetrixwindow.h"
 
- TetrixWindow::TetrixWindow()
+ TetrixWindow::TetrixWindow(char *argv[])
  {
-     board = new TetrixBoard;
+     board = new TetrixBoard(argv[2]);
 
      nextPieceLabel = new QLabel;
      nextPieceLabel->setFrameStyle(QFrame::Box | QFrame::Raised);

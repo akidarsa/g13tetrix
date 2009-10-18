@@ -57,7 +57,7 @@
      Q_OBJECT
 
  public:
-     TetrixWindow();
+     TetrixWindow(char *argv[]);
 
  private:
      QLabel *createLabel(const QString &text);

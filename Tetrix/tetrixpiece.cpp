@@ -63,9 +63,9 @@
      };
 
      for (int i = 0; i < 4 ; i++) {
-         for (int j = 0; j < 2; ++j)
+         for (int j = 0; j < 2; ++j) {
              coords[i][j] = coordsTable[shape][i][j];
-    // }
+        }
     }
      pieceShape = shape;
  }
