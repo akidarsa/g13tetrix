@@ -11,8 +11,8 @@ CND_CONF=Default
 CND_DISTDIR=dist
 TMPDIR=build/${CND_CONF}/${CND_PLATFORM}/tmp-packaging
 TMPDIRNAME=tmp-packaging
-OUTPUT_PATH=MissingOutputInProject
-OUTPUT_BASENAME=MissingOutputInProject
+OUTPUT_PATH=./.svn/text-base/Tetrix.svn-base
+OUTPUT_BASENAME=Tetrix.svn-base
 PACKAGE_TOP_DIR=Tetrix/
 
 # Functions
