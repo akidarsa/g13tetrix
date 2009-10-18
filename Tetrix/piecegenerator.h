@@ -9,7 +9,7 @@
 #define	_PIECEGENERATOR_H
 #include <iostream>
 #include <string>
-#include <fstream.h>
+#include <fstream>
 
 using namespace std;
 
