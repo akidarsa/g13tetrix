@@ -68,12 +68,12 @@
 
  void TetrixPiece::setShape(TetrixShape shape)
  {
-     static const int coordsTable[4][2] = {
+     static const int coordsTable[1][4][2] = {
          {0,0}, {0,0}, {0,0}, {0,0}
      };
      for (int i = 0; i < 4; i++) {
          for (int j = 0; j < 2; ++j) {
-             coords[i][j] = coordsTable[i][j];
+             coords[i][j] = coordsTable[shape][i][j];
          }
      }
      pieceShape = shape;
