@@ -42,40 +42,32 @@
  ****************************************************************************/
 
  #include <QtCore>
-
  #include <stdlib.h>
-
  #include "tetrixpiece.h"
+ #include <QFile>
+ #include <QTextStream>
 
- void TetrixPiece::setRandomShape()
+
+ void TetrixPiece::setRandomShape(QTextStream line)
  {
-     setShape(TetrixShape(qrand() % 7 + 1));
- }
+     int pieceLoc[7][2];
+     int pieceSize;
 
- void TetrixPiece::setShape(TetrixShape shape)
- {
-     static const int coordsTable[8][4][2] = {
-         { { 0, 0 },   { 0, 0 },   { 0, 0 },   { 0, 0 } },
-         { { 0, -1 },  { 0, 0 },   { -1, 0 },  { -1, 1 } },
-         { { 0, -1 },  { 0, 0 },   { 1, 0 },   { 1, 1 } },
-         { { 0, -1 },  { 0, 0 },   { 0, 1 },   { 0, 2 } },
-         { { -1, 0 },  { 0, 0 },   { 1, 0 },   { 0, 1 } },
-         { { 0, 0 },   { 1, 0 },   { 0, 1 },   { 1, 1 } },
-         { { -1, -1 }, { 0, -1 },  { 0, 0 },   { 0, 1 } },
-         { { 1, -1 },  { 0, -1 },  { 0, 0 },   { 0, 1 } }
-     };
+     pieceGen.getNextPiece(line, pieceLoc, pieceSize);
 
-     for (int i = 0; i < 4 ; i++) {
-         for (int j = 0; j < 2; ++j)
-             coords[i][j] = coordsTable[shape][i][j];
+     int coords = new int[*pieceSize][2];
+
+     for(int i = 0; i < *pieceSize; i++) {
+         for(int j = 0; j < *pieceSize; j++) {
+             coords[i][j] = pieceLoc[i][j];
+         }
      }
-     pieceShape = shape;
  }
 
  int TetrixPiece::minX() const
  {
      int min = coords[0][0];
-     for (int i = 1; i < 4; ++i)
+     for (int i = 1; i < pieceSize; ++i)
          min = qMin(min, coords[i][0]);
      return min;
  }
@@ -83,7 +75,7 @@
  int TetrixPiece::maxX() const
  {
      int max = coords[0][0];
-     for (int i = 1; i < 4; ++i)
+     for (int i = 1; i < pieceSize; ++i)
          max = qMax(max, coords[i][0]);
      return max;
  }
@@ -91,7 +83,7 @@
  int TetrixPiece::minY() const
  {
      int min = coords[0][1];
-     for (int i = 1; i < 4; ++i)
+     for (int i = 1; i < pieceSize; ++i)
          min = qMin(min, coords[i][1]);
      return min;
  }
@@ -99,19 +91,16 @@
  int TetrixPiece::maxY() const
  {
      int max = coords[0][1];
-     for (int i = 1; i < 4; ++i)
+     for (int i = 1; i < pieceSize; ++i)
          max = qMax(max, coords[i][1]);
      return max;
  }
 
  TetrixPiece TetrixPiece::rotatedLeft() const
  {
-     if (pieceShape == SquareShape)
-         return *this;
-
      TetrixPiece result;
      result.pieceShape = pieceShape;
-     for (int i = 0; i < 4; ++i) {
+     for (int i = 0; i < pieceSize; ++i) {
          result.setX(i, y(i));
          result.setY(i, -x(i));
      }
@@ -120,12 +109,9 @@
 
  TetrixPiece TetrixPiece::rotatedRight() const
  {
-     if (pieceShape == SquareShape)
-         return *this;
-
      TetrixPiece result;
      result.pieceShape = pieceShape;
-     for (int i = 0; i < 4; ++i) {
+     for (int i = 0; i < pieceSize; ++i) {
          result.setX(i, -y(i));
          result.setY(i, x(i));
      }

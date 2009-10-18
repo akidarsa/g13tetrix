@@ -44,18 +44,19 @@
  #ifndef TETRIXPIECE_H
  #define TETRIXPIECE_H
 
- enum TetrixShape { NoShape, ZShape, SShape, LineShape, TShape, SquareShape,
-                    LShape, MirroredLShape };
+ #include <QFile>
+ #include <QTextStream>
+ #include "piecegenerator.h"
+
+ enum TetrixShape { FourPiece, FivePiece, SixPiece, SevenPiece, NoShape };
 
  class TetrixPiece
  {
  public:
-     TetrixPiece() { setShape(NoShape); }
 
-     void setRandomShape();
-     void setShape(TetrixShape shape);
-
+     void setRandomShape(QTextStream line);
      TetrixShape shape() const { return pieceShape; }
+     int sizeOf() {return pieceSize;}
      int x(int index) const { return coords[index][0]; }
      int y(int index) const { return coords[index][1]; }
      int minX() const;
@@ -69,8 +70,12 @@
      void setX(int index, int x) { coords[index][0] = x; }
      void setY(int index, int y) { coords[index][1] = y; }
 
+     PieceGenerator pieceGen;
      TetrixShape pieceShape;
-     int coords[4][2];
+     int pieceSize;
+     int pieceLoc[7][2];
+     int coords[][2];
+
  };
 
  #endif
