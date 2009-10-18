@@ -17,25 +17,26 @@ PieceGenerator::PieceGenerator() {
 }
 
 void PieceGenerator::init(char *string) {
-printf("you are in init\n");
-
-//QString s;
-s = string;
-//printf("%s\n", s);
-     //QFile inputFile((const QString) &s);
-	//QFile inputFile(string);
+	printf("you are in init\n");
+	QString s(string);
 	QFile inputFile(s);
-}
-
-
-void PieceGenerator::openInput() {
     if ( inputFile.open(QIODevice::ReadOnly) ) {
         printf("File Opened...");
     } else {
         printf("Failed to open piece file...");
     }
-    QTextStream stream(&inputFile);
+    //QTextStream stream(&inputFile);
+}
 
+
+void PieceGenerator::openInput() {
+	/**printf("you are in init\n");
+    if ( inputFile.open(QIODevice::ReadOnly) ) {
+        printf("File Opened...");
+    } else {
+        printf("Failed to open piece file...");
+    }**/
+    QTextStream stream(&inputFile);
 }
 
 void PieceGenerator::closeInput() {
