@@ -7,7 +7,7 @@
 
 #include "piecegenerator.h"
 #include <math.h>
-#include <fstream.h>
+#include <fstream>
 #include <vector>
 #include <iostream>
 #include <string>
