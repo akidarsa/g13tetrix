@@ -52,11 +52,11 @@
  int main(int argc, char *argv[])
  {
      if( argc != 3 ) {
-            printf("Error: Insufficient Command line Arguments");
+            printf("Error: Insufficient Command line Arguments\n");
             return(0);
      }
      if( strcmp(argv[1],"-f") != 0) {
-            printf("Error: Incorrect input file format");
+            printf("Error: Incorrect input file format\n");
             return(0);
      }
      QApplication app(argc, argv);
