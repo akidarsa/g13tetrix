@@ -7,9 +7,11 @@
 
 #ifndef _PIECEGENERATOR_H
 #define	_PIECEGENERATOR_H
+#include <iostream>
+#include <string>
+#include <fstream.h>
 
-#include <QFile>
-#include <QTextStream>
+using namespace std;
 
 class PieceGenerator
 {
@@ -21,11 +23,12 @@ public:
     void getNextPiece(int pieceLoc[][2], int *pieceSize);
 
 private:
-    QString pieceStr;
-    QFile inputFile;
-    QTextStream stream;
+    //char pieceStr[100];
+    string pieceStr;
+    fstream filestr;
+    //QTextStream stream;
     int piecePos;
-    QString s;
+    //QString s;
 };
 
 #endif	/* _PIECEGENERATOR_H */

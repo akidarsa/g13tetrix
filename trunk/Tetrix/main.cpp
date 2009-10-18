@@ -59,13 +59,14 @@
             printf("Error: Incorrect input file format\n");
             return(0);
      }
-     QApplication app(argc, argv);
+  
      PieceGenerator pieceGen;
      pieceGen.init(argv[2]);
      pieceGen.openInput();
+     QApplication app(argc, argv);
      TetrixWindow window;
      window.show();
      qsrand(QTime(0,0,0).secsTo(QTime::currentTime()));
-
+     pieceGen.closeInput();
      return app.exec();
  }
