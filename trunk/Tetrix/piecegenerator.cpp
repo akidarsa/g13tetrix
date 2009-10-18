@@ -21,12 +21,16 @@ PieceGenerator::PieceGenerator() {
 void PieceGenerator::init(char *string) {
     printf("you are in init\n");
     fstream filestr;
+
     filestr.open (string, fstream::in);
+    printf("file has been opened");
+    //assert()
     if (filestr.is_open()) {
         printf("File Opened...");
     } else {
         printf("Failed to open piece file...");
     }
+    printf("You reached the end of init");
 }
 
 
@@ -45,6 +49,7 @@ void PieceGenerator::closeInput() {
 }
 
 void PieceGenerator::getNextPiece(int pieceLoc[][2],int *pieceSize) {
+    printf("Attempting to get next piece");
     if ( !filestr.eofbit ) {
        getline(filestr, pieceStr);
     }
