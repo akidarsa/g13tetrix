@@ -25,6 +25,7 @@ private:
     QFile inputFile;
     QTextStream stream;
     int piecePos;
+    QString s;
 };
 
 #endif	/* _PIECEGENERATOR_H */

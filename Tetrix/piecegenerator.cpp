@@ -13,11 +13,18 @@
 PieceGenerator::PieceGenerator() {
     //QString fileName = QString(QLatin1String(string));
     //inputFile = new QFile(&fileName);
- 
+//printf("You created a PG\n"); 
 }
 
 void PieceGenerator::init(char *string) {
-      QFile inputFile(string);
+printf("you are in init\n");
+
+//QString s;
+s = string;
+//printf("%s\n", s);
+     //QFile inputFile((const QString) &s);
+	//QFile inputFile(string);
+	QFile inputFile(s);
 }
 
 
