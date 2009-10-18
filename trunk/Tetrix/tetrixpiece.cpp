@@ -46,37 +46,47 @@
  #include "tetrixpiece.h"
  #include <QFile>
  #include <QTextStream>
- #include "piecegenerator.h"
+ #include <string>
 
-
- void TetrixPiece::setRandomShape()
- {
-     int pieceLoc[7][2];
-     int pieceSize;
-     PieceGenerator pieceGen;
-
-     pieceGen.getNextPiece(pieceLoc, &pieceSize);
-
-     int coords[pieceSize][2];
-
-     for(int i = 0; i < pieceSize; i++) {
-         for(int j = 0; j < 2; j++) {
-             coords[i][j] = pieceLoc[i][j];
-         }
-     }
- }
 
  void TetrixPiece::setShape(TetrixShape shape)
  {
-     static const int coordsTable[1][4][2] = {
-         {{0,0}, {0,0}, {0,0}, {0,0}}
+     static const int coordsTable[8][4][2] = {
+         { { 0, 0 },   { 0, 0 },   { 0, 0 },   { 0, 0 } },
+         { { 0, -1 },  { 0, 0 },   { -1, 0 },  { -1, 1 } },
+         { { 0, -1 },  { 0, 0 },   { 1, 0 },   { 1, 1 } },
+         { { 0, -1 },  { 0, 0 },   { 0, 1 },   { 0, 2 } },
+         { { -1, 0 },  { 0, 0 },   { 1, 0 },   { 0, 1 } },
+         { { 0, 0 },   { 1, 0 },   { 0, 1 },   { 1, 1 } },
+         { { -1, -1 }, { 0, -1 },  { 0, 0 },   { 0, 1 } },
+         { { 1, -1 },  { 0, -1 },  { 0, 0 },   { 0, 1 } }
      };
-     for (int i = 0; i < 4; i++) {
-         for (int j = 0; j < 2; ++j) {
+
+     for (int i = 0; i < 4 ; i++) {
+         for (int j = 0; j < 2; ++j)
              coords[i][j] = coordsTable[shape][i][j];
-         }
-     }
+    // }
+    }
      pieceShape = shape;
+ }
+
+ void TetrixPiece::setShape(string pieceIter)
+ {
+     int pieceSize;
+     int piecePos;
+
+     piecePos = 0;
+     pieceSize = (int)sqrt(pieceIter.length());
+
+    for(int i = 0; i < pieceSize; i++) {
+        for(int j = 0; j < pieceSize; j++) {
+           if ( ((int)pieceIter[(i * pieceSize) + j]) == 1 ) {
+               coords[piecePos][0]=j;
+               coords[piecePos][1]=i;
+               piecePos++;
+           }
+        }
+    }
  }
 
  int TetrixPiece::minX() const

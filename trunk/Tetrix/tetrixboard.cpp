@@ -45,8 +45,11 @@
  #include <QMessageBox>
  #include "tetrixboard.h"
  #include "tetrixkey.h"
- #include <QFile>
- #include <QTextStream>
+ #include <fstream>
+ #include <vector>
+ #include <iostream>
+ #include <string>
+ #include <iterator>
 
  TetrixBoard::TetrixBoard(QWidget *parent)
      : QFrame(parent)
@@ -57,19 +60,39 @@
      isPaused = false;
      isDemo = false;
      clearBoard();
+     filestr.open(fileName, ios::in);
+     cout << fileName << endl;
+
+     printf("Board Cleared %s ", fileName);
+     if (filestr.is_open()) {
+        printf("File Opened...\n");
+     } else {
+        printf("Failed to open piece file... \n");
+     }
+
+     while (filestr) {
+            //filestr.getline(pieceStr, 100);
+            getline(filestr, pieceStr);
+            pieceVector.push_back(pieceStr);
+    }
+
+    vector <string>::iterator pieceIter = pieceVector.begin();
+
+    leftVar = Qt::Key_Left;
+    rightVar = Qt::Key_Right;
+    rotRightVar = Qt::Key_Up;
+    dropVar = Qt::Key_D;
+    mdropVar= Qt::Key_Space;
 
 
-	leftVar = Qt::Key_Left;
-	rightVar = Qt::Key_Right;
-	rotRightVar = Qt::Key_Up;
-	dropVar = Qt::Key_D;
-	mdropVar= Qt::Key_Space;
 
-
-
-     nextPiece.setRandomShape();
+    nextPiece.setShape(*(pieceIter++));
  }
-
+ void TetrixBoard::getKey(char *input)
+ {
+     fileName=input;
+     cout << fileName << endl;
+ }
  void TetrixBoard::setNextPieceLabel(QLabel *label)
  {
      nextPieceLabel = label;
@@ -100,7 +123,7 @@
      totNumDropped = 0;
      score = 0;
      level = 1;
-
+     printf("Start initialized... \n");
 
 	 /**
 	 fourBlockDropped = 0;
@@ -324,7 +347,7 @@
  {
      QMessageBox lossmessage;
      curPiece = nextPiece;
-     nextPiece.setRandomShape();
+     nextPiece.setShape(*(pieceIter++));
      showNextPiece();
      curX = BoardWidth / 2 + 1;
      curY = BoardHeight - 1 + curPiece.minY();

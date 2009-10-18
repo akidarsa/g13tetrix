@@ -47,10 +47,15 @@
 #include <QBasicTimer>
 #include <QFrame>
 #include <QPointer>
-#include <QFile>
-#include <QTextStream>
+#include <iostream>
+#include <fstream>
+#include <vector>
+#include <string>
+#include <iterator>
 
 #include "tetrixpiece.h"
+
+using namespace std;
 
 class QLabel;
 class QPushButton;
@@ -64,6 +69,7 @@ public:
     void setNextPieceLabel(QLabel *label);
     QSize sizeHint() const;
     QSize minimumSizeHint() const;
+    void getKey(char *input);
 
 public slots:
     void start();
@@ -149,6 +155,11 @@ private:
     int mdropVar;
     int key;
     int temK;
+    char *fileName;
+    string pieceStr;
+    vector<string>::iterator pieceIter;
+    vector<string> pieceVector;
+    ifstream filestr;
     QPushButton *leftButton;
     QPushButton *rightButton;
     QPushButton *rotateButton;

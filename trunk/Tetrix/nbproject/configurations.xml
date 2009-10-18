@@ -3,10 +3,13 @@
   <logicalFolder name="root" displayName="root" projectFiles="true">
     <df name="Tetrix" root=".">
       <in>main.cpp</in>
-      <in>piecegenerator.cpp</in>
-      <in>piecegenerator.h</in>
+      <in>moc_tetrixboard.cpp</in>
+      <in>moc_tetrixkey.cpp</in>
+      <in>moc_tetrixwindow.cpp</in>
       <in>tetrixboard.cpp</in>
       <in>tetrixboard.h</in>
+      <in>tetrixkey.cpp</in>
+      <in>tetrixkey.h</in>
       <in>tetrixpiece.cpp</in>
       <in>tetrixpiece.h</in>
       <in>tetrixwindow.cpp</in>
@@ -35,7 +38,7 @@
           <buildCommandWorkingDir>.</buildCommandWorkingDir>
           <buildCommand>$(MAKE) -f Makefile</buildCommand>
           <cleanCommand>$(MAKE) -f Makefile clean</cleanCommand>
-          <executablePath></executablePath>
+          <executablePath>./.svn/text-base/Tetrix.svn-base</executablePath>
           <ccTool>
             <incDir>
               <pElem>../../sfwtools/public/qt4.4.3/mkspecs/linux-g++-64</pElem>

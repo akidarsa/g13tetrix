@@ -46,17 +46,21 @@
 
  #include <QFile>
  #include <QTextStream>
- #include "piecegenerator.h"
+ #include <string>
+ #include <iterator>
 
- enum TetrixShape { NoShape };
+ using namespace std;
+ 
+  enum TetrixShape { NoShape, ZShape, SShape, LineShape, TShape, SquareShape,
+                    LShape, MirroredLShape };
 
  class TetrixPiece
  {
  public:
 
-     void setRandomShape();
+     void setShape(string pieceIter);
      void setShape(TetrixShape shape);
-     
+
      TetrixShape shape() const { return pieceShape; }
      int sizeOf() {return pieceSize;}
      int x(int index) const { return coords[index][0]; }
