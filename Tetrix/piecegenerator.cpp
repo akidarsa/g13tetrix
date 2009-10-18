@@ -7,8 +7,10 @@
 
 #include "piecegenerator.h"
 #include <math.h>
-#include <QFile>
-#include <QTextStream>
+#include <fstream.h>
+#include <vector>
+#include <iostream>
+#include <string>
 
 PieceGenerator::PieceGenerator() {
     //QString fileName = QString(QLatin1String(string));
@@ -17,15 +19,14 @@ PieceGenerator::PieceGenerator() {
 }
 
 void PieceGenerator::init(char *string) {
-	printf("you are in init\n");
-	QString s(string);
-	QFile inputFile(s);
-    if ( inputFile.open(QIODevice::ReadOnly) ) {
+    printf("you are in init\n");
+    fstream filestr;
+    filestr.open (string, fstream::in);
+    if (filestr.is_open()) {
         printf("File Opened...");
     } else {
         printf("Failed to open piece file...");
     }
-    //QTextStream stream(&inputFile);
 }
 
 
@@ -36,24 +37,24 @@ void PieceGenerator::openInput() {
     } else {
         printf("Failed to open piece file...");
     }**/
-    QTextStream stream(&inputFile);
+    //QTextStream stream(&inputFile, );
 }
 
 void PieceGenerator::closeInput() {
-    inputFile.close();
+    filestr.close();
 }
 
 void PieceGenerator::getNextPiece(int pieceLoc[][2],int *pieceSize) {
-    if ( !stream.atEnd() ) {
-       pieceStr = stream.readLine();
+    if ( !filestr.eofbit ) {
+       getline(filestr, pieceStr);
     }
 
-    *pieceSize = (int)sqrt(pieceStr.size());
+    *pieceSize = (int)sqrt(pieceStr.length());
     piecePos = 0;
 
     for(int i = 0; i < *pieceSize; i++) {
         for(int j = 0; j < *pieceSize; j++) {
-           if ( pieceStr[(i * (*pieceSize)) + j].digitValue() == 1 ) {
+           if ( ((int)pieceStr[(i * (*pieceSize)) + j]) == 1 ) {
                pieceLoc[piecePos][0]=j;
                pieceLoc[piecePos][1]=i;
                piecePos++;
