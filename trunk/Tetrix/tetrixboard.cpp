@@ -51,7 +51,7 @@
  #include <string>
  #include <iterator>
 
- TetrixBoard::TetrixBoard(QWidget *parent)
+ TetrixBoard::TetrixBoard(char argv[], QWidget *parent)
      : QFrame(parent)
  {
      setFrameStyle(QFrame::Panel | QFrame::Sunken);
@@ -60,10 +60,9 @@
      isPaused = false;
      isDemo = false;
      clearBoard();
-     filestr.open(fileName, ios::in);
-     cout << fileName << endl;
+     filestr.open(argv, ios::in);
+     cout << argv << endl;
 
-     printf("Board Cleared %s ", fileName);
      if (filestr.is_open()) {
         printf("File Opened...\n");
      } else {
@@ -88,11 +87,7 @@
 
     nextPiece.setShape(*(pieceIter++));
  }
- void TetrixBoard::getKey(char *input)
- {
-     fileName=input;
-     cout << fileName << endl;
- }
+
  void TetrixBoard::setNextPieceLabel(QLabel *label)
  {
      nextPieceLabel = label;

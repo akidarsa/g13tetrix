@@ -61,9 +61,7 @@
      }
 
      QApplication app(argc, argv);
-     TetrixBoard test;
-     test.getKey(argv[2]);
-     TetrixWindow window;
+     TetrixWindow window(argv);
      window.show();
      qsrand(QTime(0,0,0).secsTo(QTime::currentTime()));
      return app.exec();
