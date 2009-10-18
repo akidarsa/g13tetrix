@@ -10,30 +10,34 @@
 #include <QFile>
 #include <QTextStream>
 
+PieceGenerator::PieceGenerator() {
+    //QString fileName = QString(QLatin1String(string));
+    //inputFile = new QFile(&fileName);
+ 
+}
 
-void PieceGenerator::openInput(QFile *pieceFile) {
-    /*if( argc != 3 ) {
-            printf("Error: Insufficient Command line arguments");
-     }
-     if( strcmp(argv[1],"-f") != 0) {
-            printf("Error: Incorrect input file format");
-    }
-    printf ("File to be opened is : %s \n", argv[2]);
-    */
-    if ( (*pieceFile).open(QIODevice::ReadOnly) ) {
+void PieceGenerator::init(char *string) {
+      QFile inputFile(string);
+}
+
+
+void PieceGenerator::openInput() {
+    if ( inputFile.open(QIODevice::ReadOnly) ) {
         printf("File Opened...");
     } else {
         printf("Failed to open piece file...");
     }
+    QTextStream stream(&inputFile);
 
 }
 
-void PieceGenerator::getNextPiece(QTextStream line, int pieceLoc[][2],
-        int *pieceSize) {
-  //  QFile pieceFile( (argv[2]) );
+void PieceGenerator::closeInput() {
+    inputFile.close();
+}
 
-    if ( !(line).atEnd() ) {
-       pieceStr = (line).readLine();
+void PieceGenerator::getNextPiece(int pieceLoc[][2],int *pieceSize) {
+    if ( !stream.atEnd() ) {
+       pieceStr = stream.readLine();
     }
 
     *pieceSize = (int)sqrt(pieceStr.size());

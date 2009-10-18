@@ -46,22 +46,37 @@
  #include "tetrixpiece.h"
  #include <QFile>
  #include <QTextStream>
+ #include "piecegenerator.h"
 
 
- void TetrixPiece::setRandomShape(QTextStream line)
+ void TetrixPiece::setRandomShape()
  {
      int pieceLoc[7][2];
      int pieceSize;
+     PieceGenerator pieceGen;
 
-     pieceGen.getNextPiece(line, pieceLoc, pieceSize);
+     pieceGen.getNextPiece(pieceLoc, &pieceSize);
 
-     int coords = new int[*pieceSize][2];
+     int coords[pieceSize][2];
 
-     for(int i = 0; i < *pieceSize; i++) {
-         for(int j = 0; j < *pieceSize; j++) {
+     for(int i = 0; i < pieceSize; i++) {
+         for(int j = 0; j < 2; j++) {
              coords[i][j] = pieceLoc[i][j];
          }
      }
+ }
+
+ void TetrixPiece::setShape(TetrixShape shape)
+ {
+     static const int coordsTable[4][2] = {
+         {0,0}, {0,0}, {0,0}, {0,0}
+     };
+     for (int i = 0; i < 4; i++) {
+         for (int j = 0; j < 2; ++j) {
+             coords[i][j] = coordsTable[i][j];
+         }
+     }
+     pieceShape = shape;
  }
 
  int TetrixPiece::minX() const

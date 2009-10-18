@@ -11,15 +11,19 @@
 #include <QFile>
 #include <QTextStream>
 
-class PieceGenerator {
+class PieceGenerator
+{
 public:
     PieceGenerator();
-    void openInput(QFile *pieceFile);
-    void getNextPiece(QTextStream line, int pieceLoc[][2], int *pieceSize);
+    void openInput();
+    void closeInput();
+    void init(char *string);
+    void getNextPiece(int pieceLoc[][2], int *pieceSize);
 
 private:
     QString pieceStr;
-    QTextStream line;
+    QFile inputFile;
+    QTextStream stream;
     int piecePos;
 };
 

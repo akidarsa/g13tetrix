@@ -57,9 +57,7 @@
      isPaused = false;
      isDemo = false;
      clearBoard();
-//     pieceFile = new QFile((argv[2])); //to be changed...
-     pieceGen.openInput(pieceFile);
-     line = new QTextStream(pieceFile);
+
 
 	leftVar = Qt::Key_Left;
 	rightVar = Qt::Key_Right;
@@ -69,7 +67,7 @@
 
 
 
-     nextPiece.setRandomShape(line);
+     nextPiece.setRandomShape();
  }
 
  void TetrixBoard::setNextPieceLabel(QLabel *label)
@@ -326,7 +324,7 @@
  {
      QMessageBox lossmessage;
      curPiece = nextPiece;
-     nextPiece.setRandomShape(line);
+     nextPiece.setRandomShape();
      showNextPiece();
      curX = BoardWidth / 2 + 1;
      curY = BoardHeight - 1 + curPiece.minY();
