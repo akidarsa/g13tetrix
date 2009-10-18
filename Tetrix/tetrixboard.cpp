@@ -44,7 +44,9 @@
  #include <QtGui>
  #include <QMessageBox>
  #include "tetrixboard.h"
-#include "tetrixkey.h"
+ #include "tetrixkey.h"
+ #include <QFile>
+ #include <QTextStream>
 
  TetrixBoard::TetrixBoard(QWidget *parent)
      : QFrame(parent)
@@ -55,6 +57,9 @@
      isPaused = false;
      isDemo = false;
      clearBoard();
+//     pieceFile = new QFile((argv[2])); //to be changed...
+     pieceGen.openInput(pieceFile);
+     line = new QTextStream(pieceFile);
 
 	leftVar = Qt::Key_Left;
 	rightVar = Qt::Key_Right;
@@ -64,7 +69,7 @@
 
 
 
-     nextPiece.setRandomShape();
+     nextPiece.setRandomShape(line);
  }
 
  void TetrixBoard::setNextPieceLabel(QLabel *label)
@@ -97,6 +102,7 @@
      totNumDropped = 0;
      score = 0;
      level = 1;
+
 
 	 /**
 	 fourBlockDropped = 0;
@@ -171,7 +177,7 @@
      }
 
      if (curPiece.shape() != NoShape) {
-         for (int i = 0; i < 4; ++i) {
+         for (int i = 0; i < curPiece.sizeOf(); ++i) {
              int x = curX + curPiece.x(i);
              int y = curY - curPiece.y(i);
              drawSquare(painter, rect.left() + x * squareWidth(),
@@ -257,7 +263,7 @@
 
  void TetrixBoard::pieceDropped(int dropHeight)
  {
-     for (int i = 0; i < 4; ++i) {
+     for (int i = 0; i < curPiece.sizeOf(); ++i) {
          int x = curX + curPiece.x(i);
          int y = curY - curPiece.y(i);
          shapeAt(x, y) = curPiece.shape();
@@ -318,27 +324,27 @@
 
  void TetrixBoard::newPiece()
  {
-	 QMessageBox lossmessage;
+     QMessageBox lossmessage;
      curPiece = nextPiece;
-     nextPiece.setRandomShape();
+     nextPiece.setRandomShape(line);
      showNextPiece();
      curX = BoardWidth / 2 + 1;
      curY = BoardHeight - 1 + curPiece.minY();
 
      if (!tryMove(curPiece, curX, curY)) {
-         curPiece.setShape(NoShape);
-         timer.stop();
-         isStarted = false;
-		 lossmessage.setText("You lost the game!");
-		 lossmessage.setStandardButtons(QMessageBox::Ok);
-		 lossmessage.setDefaultButton(QMessageBox::Ok);
-		 lossmessage.exec();
-	     numLinesRemoved = 0;
-	     numPiecesDropped = 0;
-		 totNumDropped = 0;
-	     score = 0;
-	     level = 0;
-		 isDemo = false;
+        curPiece.setShape(NoShape);
+        timer.stop();
+        isStarted = false;
+            lossmessage.setText("You lost the game!");
+            lossmessage.setStandardButtons(QMessageBox::Ok);
+            lossmessage.setDefaultButton(QMessageBox::Ok);
+            lossmessage.exec();
+	numLinesRemoved = 0;
+	numPiecesDropped = 0;
+	totNumDropped = 0;
+	score = 0;
+	level = 0;
+	isDemo = false;
 
 	 /**
 	 fourBlockDropped = 0;
@@ -347,8 +353,8 @@
 	 sevenBlockDropped = 0;
 	 **/
 
-		 clearBoard();
-		 nextPieceLabel->clear();
+	clearBoard();
+	nextPieceLabel->clear();
      }
 
 /** emit foursDropped(fourBlockDropped);

@@ -47,6 +47,8 @@
  #include <QBasicTimer>
  #include <QFrame>
  #include <QPointer>
+ #include <QFile>
+ #include <QTextStream>
 
  #include "tetrixpiece.h"
 
@@ -126,7 +128,9 @@
      int level;
      TetrixShape board[BoardWidth * BoardHeight];
 	 //QMessageBox lossmessage;
-	 
+      QTextStream *line;
+      QFile *pieceFile;
+      PieceGenerator pieceGen;
 	 
 	 int leftVar;
 	 int rightVar;

@@ -3,8 +3,8 @@
   <logicalFolder name="root" displayName="root" projectFiles="true">
     <df name="Tetrix" root=".">
       <in>main.cpp</in>
-      <in>moc_tetrixboard.cpp</in>
-      <in>moc_tetrixwindow.cpp</in>
+      <in>piecegenerator.cpp</in>
+      <in>piecegenerator.h</in>
       <in>tetrixboard.cpp</in>
       <in>tetrixboard.h</in>
       <in>tetrixpiece.cpp</in>
