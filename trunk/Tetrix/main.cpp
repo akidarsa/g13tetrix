@@ -47,11 +47,25 @@
 
  #include "tetrixwindow.h"
 
+ #include "piecegenerator.h"
+
  int main(int argc, char *argv[])
  {
+     if( argc != 3 ) {
+            printf("Error: Insufficient Command line Arguments");
+            return(0);
+     }
+     if( strcmp(argv[1],"-f") != 0) {
+            printf("Error: Incorrect input file format");
+            return(0);
+     }
      QApplication app(argc, argv);
+     PieceGenerator pieceGen;
+     pieceGen.init(argv[2]);
+     pieceGen.openInput();
      TetrixWindow window;
      window.show();
      qsrand(QTime(0,0,0).secsTo(QTime::currentTime()));
+
      return app.exec();
  }
