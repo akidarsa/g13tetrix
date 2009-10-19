@@ -57,7 +57,8 @@
  class TetrixPiece
  {
  public:
-
+     TetrixPiece() {setShape(NoShape); }
+     
      void setShape(string pieceIter);
      void setShape(TetrixShape shape);
 

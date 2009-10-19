@@ -62,7 +62,6 @@
      isDemo = false;
      clearBoard();
      filestr.open(argv, ios::in);
-     cout << argv << endl;
 
      if (filestr.is_open()) {
         printf("File Opened...\n");
@@ -71,12 +70,11 @@
      }
 
      while (filestr) {
-            //filestr.getline(pieceStr, 100);
             getline(filestr, pieceStr);
             pieceVector.push_back(pieceStr);
     }
 
-    vector <string>::iterator pieceIter = pieceVector.begin();
+    pieceIter = pieceVector.begin();
 
     leftVar = Qt::Key_Left;
     rightVar = Qt::Key_Right;
@@ -85,10 +83,8 @@
     mdropVar= Qt::Key_Space;
 
 
-	cout <<"dankosdhnoui"<< *pieceIter << endl;
-
+    pieceSize = (*pieceIter).length();
     nextPiece.setShape(*(pieceIter++));
-	cout <<"asdasdasdasdasd" <<*pieceIter << endl;
  }
 
  void TetrixBoard::setNextPieceLabel(QLabel *label)
@@ -130,25 +126,24 @@
 	 sevenBlockDropped = 0;
 	 **/
 
-     clearBoard();
 
      emit linesRemovedChanged(numLinesRemoved);
      emit scoreChanged(score);
      emit levelChanged(level);
-	 emit piecesDropped(numPiecesDropped);
-	 emit totsDropped(totNumDropped);
+     emit piecesDropped(numPiecesDropped);
+     emit totsDropped(totNumDropped);
+
+     clearBoard();
+     printf("Board cleared.... \n");
 
 /**	emit foursDropped(fourBlockDropped);
 	emit fivesDropped(fiveBlockDropped);
 	emit sixsDropped(sixBlockDropped);
 	emit sevensDropped(sevenBlockDropped);
 **/
-
-     printf("I CRASH HERE ^_^");    
-     newPiece();
-     printf("I CRASH HERE ^_^");    
-     timer.start(timeoutTime(), this);
-     printf("I CRASH HERE ^_^");    
+   
+     newPiece();  
+     timer.start(timeoutTime(), this);  
  }
 
  void TetrixBoard::pause()
@@ -300,7 +295,7 @@
      emit scoreChanged(score);
      removeFullLines();
 
-     if (!isWaitingAfterLine)
+     if (!isWaitingAfterLine);
          newPiece();
  }
 
@@ -344,12 +339,10 @@
 
  void TetrixBoard::newPiece()
  {
-     printf("I CRASH HERE ^_^");    
      QMessageBox lossmessage;
      curPiece = nextPiece;
-     printf("I CRASH HERE ^_^");    
+     pieceSize = (*pieceIter).length();
      nextPiece.setShape(*(pieceIter++));
-     printf("I CRASH HERE ^_^");    
      showNextPiece();
      curX = BoardWidth / 2 + 1;
      curY = BoardHeight - 1 + curPiece.minY();
@@ -405,7 +398,7 @@
      QPainter painter(&pixmap);
      painter.fillRect(pixmap.rect(), nextPieceLabel->palette().background());
 
-     for (int i = 0; i < 4; ++i) {
+     for (int i = 0; i < pieceSize; i++) {
 	 totNumDropped++;
 	 emit totsDropped(totNumDropped);		
          int x = nextPiece.x(i) - nextPiece.minX();
@@ -442,7 +435,7 @@
      };
 
      QColor color = colorTable[int(shape)];
-     painter.fillRect(x + 1, y + 1, squareWidth() - 2, squareHeight() - 2,
+     painter.fillRect(x + 1, y + 1, squareWidth() - 1, squareHeight() - 1,
                       color);
 
      painter.setPen(color.light());
