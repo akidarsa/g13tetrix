@@ -73,25 +73,25 @@ using namespace std;
 
  void TetrixPiece::setShape(string pieceIter)
  {
-	 cout << pieceIter.length() << endl;
+     cout << pieceIter.length() << endl;
 
-
-     int pieceSize;
      int piecePos;
-
      piecePos = 0;
-     pieceSize = (int)sqrt(pieceIter.length());
-	 cout << pieceSize << endl;
 
+     pieceSize = (int)sqrt(pieceIter.length());
+    char temp;
     for(int i = 0; i < pieceSize; i++) {
-        for(int j = 0; j < pieceSize; j++) {
-           if ( ((int)pieceIter[(i * pieceSize) + j]) == 1 ) {
+        for(int j = 0; j < pieceSize; ++j) {
+            temp = pieceIter[(i * pieceSize) + j];
+            if(temp == '1') {
                coords[piecePos][0]=j;
                coords[piecePos][1]=i;
                piecePos++;
            }
         }
     }
+    for(int i =0;i<piecePos;i++)
+        printf("(%d,%d)\n",coords[i][0],coords[i][1]);
  }
 
  int TetrixPiece::minX() const

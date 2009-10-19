@@ -154,6 +154,7 @@ private:
     int mdropVar;
     int key;
     int temK;
+    int pieceSize;
     char *fileName;
     string pieceStr;
     vector<string>::iterator pieceIter;
