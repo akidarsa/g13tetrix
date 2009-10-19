@@ -81,7 +81,7 @@ using namespace std;
 
      piecePos = 0;
      pieceSize = (int)sqrt(pieceIter.length());
-	 cout << pieceIter.length() << endl;
+	 cout << pieceSize << endl;
 
     for(int i = 0; i < pieceSize; i++) {
         for(int j = 0; j < pieceSize; j++) {
