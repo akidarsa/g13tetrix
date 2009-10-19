@@ -44,9 +44,10 @@
  #include <QtCore>
  #include <stdlib.h>
  #include "tetrixpiece.h"
- #include <QFile>
- #include <QTextStream>
  #include <string>
+#include <iostream>
+
+using namespace std;
 
 
  void TetrixPiece::setShape(TetrixShape shape)
@@ -72,11 +73,15 @@
 
  void TetrixPiece::setShape(string pieceIter)
  {
+	 cout << pieceIter.length() << endl;
+
+
      int pieceSize;
      int piecePos;
 
      piecePos = 0;
      pieceSize = (int)sqrt(pieceIter.length());
+	 cout << pieceIter.length() << endl;
 
     for(int i = 0; i < pieceSize; i++) {
         for(int j = 0; j < pieceSize; j++) {
