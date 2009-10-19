@@ -51,6 +51,7 @@
  #include <string>
  #include <iterator>
 
+
  TetrixBoard::TetrixBoard(char argv[], QWidget *parent)
      : QFrame(parent)
  {
@@ -84,8 +85,10 @@
     mdropVar= Qt::Key_Space;
 
 
+	cout <<"dankosdhnoui"<< *pieceIter << endl;
 
     nextPiece.setShape(*(pieceIter++));
+	cout <<"asdasdasdasdasd" <<*pieceIter << endl;
  }
 
  void TetrixBoard::setNextPieceLabel(QLabel *label)
@@ -127,8 +130,6 @@
 	 sevenBlockDropped = 0;
 	 **/
 
-
-
      clearBoard();
 
      emit linesRemovedChanged(numLinesRemoved);
@@ -143,8 +144,11 @@
 	emit sevensDropped(sevenBlockDropped);
 **/
 
+     printf("I CRASH HERE ^_^");    
      newPiece();
+     printf("I CRASH HERE ^_^");    
      timer.start(timeoutTime(), this);
+     printf("I CRASH HERE ^_^");    
  }
 
  void TetrixBoard::pause()
@@ -340,9 +344,12 @@
 
  void TetrixBoard::newPiece()
  {
+     printf("I CRASH HERE ^_^");    
      QMessageBox lossmessage;
      curPiece = nextPiece;
+     printf("I CRASH HERE ^_^");    
      nextPiece.setShape(*(pieceIter++));
+     printf("I CRASH HERE ^_^");    
      showNextPiece();
      curX = BoardWidth / 2 + 1;
      curY = BoardHeight - 1 + curPiece.minY();
